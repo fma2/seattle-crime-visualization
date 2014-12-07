@@ -8,6 +8,11 @@ var offsetPoints = [0,1000,2000,3000,4000,5000,6000,7000,8000,9000,10000,11000, 
 for (i=0; i < offsetPoints.length; ++i) {
 	sodaUrls.push("https://data.seattle.gov/resource/3k2p-39jp.json?$where=within_box(incident_location, 47.615152, -122.351639, 47.575152, -122.3116390)&$offset="+offsetPoints[i]+"")
 	}
+var count_by_month_yr="https://data.seattle.gov/resource/3k2p-39jp.json?$group=month&$select=date_trunc_ym(event_clearance_date) AS month, count(*) AS total";
+
+$.getJSON(count_by_month_yr, function(data) {
+	console.log(data);
+})
 
 //Draws map
 google.maps.event.addDomListener(window, 'load', drawMap);
@@ -156,5 +161,5 @@ function changeOpacity() {
 }
 
 // Add Crime Data
-// parseJsonToAddPoints(sodaUrls);
-parseJsontoAddHeatMap(sodaUrls);
+parseJsonToAddPoints(sodaUrls);
+// parseJsontoAddHeatMap(sodaUrls);
