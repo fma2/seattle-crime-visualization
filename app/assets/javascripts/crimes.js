@@ -1,81 +1,52 @@
 
 // API Call
-var sodaUrl = "https://data.seattle.gov/resource/3k2p-39jp.json?$where=within_box(incident_location, 47.615152, -122.351639, 47.575152, -122.311639)";
-var sodaUrl1000 = "https://data.seattle.gov/resource/3k2p-39jp.json?$where=within_box(incident_location, 47.615152, -122.351639, 47.575152, -122.311639)&$offset=1000";
+var sodaUrlfirst1000 = "https://data.seattle.gov/resource/3k2p-39jp.json?$where=within_box(incident_location, 47.615152, -122.351639, 47.575152, -122.311639)";
+var sodaUrlsecond1000 = "https://data.seattle.gov/resource/3k2p-39jp.json?$where=within_box(incident_location, 47.615152, -122.351639, 47.575152, -122.311639)&$offset=1000";
 
-$.getJSON(sodaUrl, function(rawData) {
-	var styleArray = [
-	  {
-	    featureType: "all",
-	    stylers: [
-	      { saturation: -80 }
-	    ]
-	  },{
-	    featureType: "road.arterial",
-	    elementType: "geometry",
-	    stylers: [
-	      { hue: "#00ffee" },
-	      { saturation: 50 }
-	    ]
-	  },{
-	    featureType: "poi.business",
-	    elementType: "labels",
-	    stylers: [
-	      { visibility: "off" }
-	    ]
+google.maps.event.addDomListener(window, 'load', drawMap);
+mapCrimeData(sodaUrlfirst1000);
+mapCrimeData(sodaUrlsecond1000);
+
+function mapCrimeData(url) {
+	$.getJSON(url,function(data) {
+		var data_to_map = prepareDataforMap(data);
+		for (i = 0; i < data_to_map.length; i++) {
+	    createMarker(data_to_map[i][0], data_to_map[i][1], data_to_map[i][2], data_to_map[i][3],data_to_map[i][4],data_to_map[i][5], data_to_map[i][6], data_to_map[i][7], map)
 	  }
-  ];
-  var mapOptions = {
-    center: { lat: 47.595152, lng: -122.331639},
-    zoom: 15,
-    styles: styleArray,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-	var map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
-	var data_to_map = prepareDataforMap(rawData);
-	for (i = 0; i < data_to_map.length; i++) {
-    addMarker(data_to_map[i][0], data_to_map[i][1], data_to_map[i][2], data_to_map[i][3],data_to_map[i][4],data_to_map[i][5], data_to_map[i][6], data_to_map[i][7], map)
-  }
-	google.maps.event.addDomListener(window, 'load');
-});
+	});
+}
 
-// $.getJSON(sodaUrl1000, function(rawData) {
-// 	var styleArray = [
-// 	  {
-// 	    featureType: "all",
-// 	    stylers: [
-// 	      { saturation: -80 }
-// 	    ]
-// 	  },{
-// 	    featureType: "road.arterial",
-// 	    elementType: "geometry",
-// 	    stylers: [
-// 	      { hue: "#00ffee" },
-// 	      { saturation: 50 }
-// 	    ]
-// 	  },{
-// 	    featureType: "poi.business",
-// 	    elementType: "labels",
-// 	    stylers: [
-// 	      { visibility: "off" }
-// 	    ]
-// 	  }
-//   ];
-//   var mapOptions = {
-//     center: { lat: 47.595152, lng: -122.331639},
-//     zoom: 15,
-//     styles: styleArray,
-//     mapTypeId: google.maps.MapTypeId.ROADMAP
-//   };
-// 	var map = new google.maps.Map(document.getElementById('map-canvas'),
-//       mapOptions);
-// 	var data_to_map = prepareDataforMap(rawData);
-// 	for (i = 0; i < data_to_map.length; i++) {
-//     addMarker(data_to_map[i][0], data_to_map[i][1], data_to_map[i][2], data_to_map[i][3],data_to_map[i][4],data_to_map[i][5], data_to_map[i][6], data_to_map[i][7], map)
-//   }
-// 	google.maps.event.addDomListener(window, 'load');
-// });
+var styleArray = [
+{
+  featureType: "all",
+  stylers: [
+    { saturation: -80 }
+  ]
+},{
+  featureType: "road.arterial",
+  elementType: "geometry",
+  stylers: [
+    { hue: "#00ffee" },
+    { saturation: 50 }
+  ]
+},{
+  featureType: "poi.business",
+  elementType: "labels",
+  stylers: [
+    { visibility: "off" }
+ 	 ]
+	}
+];
+var mapOptions = {
+  center: { lat: 47.595152, lng: -122.331639},
+  zoom: 15,
+  styles: styleArray,
+  mapTypeId: google.maps.MapTypeId.ROADMAP
+};
+var map = new google.maps.Map(document.getElementById('map-canvas'),
+    mapOptions);
+
+function drawMap(){}
 
 function prepareDataforMap(data) {
 	var dataArr = new Array();
@@ -93,7 +64,7 @@ function prepareDataforMap(data) {
   };
   return dataArr;
 };
-function addMarker(latitude, longitude, hundred_block_location, general_offense_number, event_clearance_date, event_clearance_group, event_clearance_subgroup, event_clearance_description, map) {
+function createMarker(latitude, longitude, hundred_block_location, general_offense_number, event_clearance_date, event_clearance_group, event_clearance_subgroup, event_clearance_description, map) {
   var point = new google.maps.LatLng(latitude, longitude);
   var marker = new google.maps.Marker({
       position: point,
