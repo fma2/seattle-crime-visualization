@@ -156,5 +156,5 @@ function changeOpacity() {
 }
 
 // Add Crime Data
-parseJsonToAddPoints(sodaUrls);
+// parseJsonToAddPoints(sodaUrls);
 parseJsontoAddHeatMap(sodaUrls);
