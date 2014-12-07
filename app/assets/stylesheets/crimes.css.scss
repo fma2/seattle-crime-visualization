@@ -20,3 +20,28 @@
     width: auto;
     display: inline;
 }
+
+.image {
+  /* force the div to properly contain the floated images: */
+  position:relative;
+  float:left;
+  clear:none;
+  overflow:hidden;
+}
+.image img {
+  position:relative;
+  z-index:1;
+}
+.image .desc {
+	font-size: 619%;
+  display:block;
+  position:absolute;
+  width:100%;
+  top:0%;
+  left:0;
+  z-index:2;
+  text-align:left;
+  color: white;
+  padding-left: 20px;
+  background:rgba(255,255,255,0.5);
+}
