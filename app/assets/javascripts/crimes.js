@@ -4,11 +4,11 @@ var map;
 var heatmap;
 
 // API Call
-var offsetPoints = [0,1000,2000,3000,4000,5000,6000,7000,8000,9000,10000,11000, 12000, 13000,14000, 15000,16000,17000,18000,19000]
+var offsetPoints = [0,1000,2000,3000,4000,5000,6000,7000,8000,9000,10000]
 for (i=0; i < offsetPoints.length; ++i) {
-	sodaUrls.push("https://data.seattle.gov/resource/3k2p-39jp.json?$where=within_box(incident_location, 47.615152, -122.351639, 47.575152, -122.3116390)&$offset="+offsetPoints[i]+"")
+	sodaUrls.push("https://data.seattle.gov/resource/3k2p-39jp.json?$where=within_box(incident_location, 47.615152, -122.351639, 47.575152, -122.3116390)&$offset="+offsetPoints[i]+"&$select=event_clearance_group, latitude, longitude, event_clearance_date, hundred_block_location")
 	}
-var count_by_month_yr="https://data.seattle.gov/resource/3k2p-39jp.json?$group=month&$select=date_trunc_ym(event_clearance_date) AS month, count(*) AS total";
+var count_by_month_yr="https://data.seattle.gov/resource/3k2p-39jp.json?$select=date_trunc_ym(event_clearance_date) AS month, count(*) AS total&$group=month&$where=within_box(incident_location, 47.615152, -122.351639, 47.575152, -122.3116390)";
 
 $.getJSON(count_by_month_yr, function(data) {
 	console.log(data);
@@ -56,11 +56,8 @@ function prepareDataforMap(data) {
       parseFloat(data[i].latitude), 
       parseFloat(data[i].longitude),
       data[i].hundred_block_location,
-      data[i].general_offense_number,
       data[i].event_clearance_date,
       data[i].event_clearance_group,
-      data[i].event_clearance_subgroup,
-      data[i].event_clearance_description,
       ])
   };
   return dataArr;
@@ -72,7 +69,7 @@ function parseJsonToAddPoints(urls) {
 		$.getJSON(urls[i],function(data) {
 		var data_to_map = prepareDataforMap(data);
 		for (i = 0; i < data_to_map.length; i++) {
-	    createMarker(data_to_map[i][0], data_to_map[i][1], data_to_map[i][2], data_to_map[i][3],data_to_map[i][4],data_to_map[i][5], data_to_map[i][6], data_to_map[i][7], map)
+	    createMarker(data_to_map[i][0], data_to_map[i][1], data_to_map[i][2], data_to_map[i][3],data_to_map[i][4], map)
 	  	}
 		});	
 	}
@@ -83,7 +80,7 @@ function togglePointsMap() {
 }
 
 //Creates and defines markers on map
-function createMarker(latitude, longitude, hundred_block_location, general_offense_number, event_clearance_date, event_clearance_group, event_clearance_subgroup, event_clearance_description, map) {
+function createMarker(latitude, longitude, hundred_block_location, event_clearance_date, event_clearance_group, map) {
   var point = new google.maps.LatLng(latitude, longitude);
   var marker = new google.maps.Marker({
       position: point,
@@ -99,7 +96,6 @@ function createMarker(latitude, longitude, hundred_block_location, general_offen
       '<div id="bodyContent">'+
       '<p><b>Location: </b>' + hundred_block_location + '</p>' +
       '<p><b>Date: </b>' + event_clearance_date + '<br>' +
-      '<b>Description: </b>' + event_clearance_description + '</p>' +
       '</div>'+
       '</div>';
 
@@ -161,5 +157,5 @@ function changeOpacity() {
 }
 
 // Add Crime Data
-parseJsonToAddPoints(sodaUrls);
-// parseJsontoAddHeatMap(sodaUrls);
+// parseJsonToAddPoints(sodaUrls);
+parseJsontoAddHeatMap(sodaUrls);
