@@ -125,6 +125,7 @@ function parseJsontoAddHeatMap(urls) {
 	var pointArray = new google.maps.MVCArray(dataArr);
 		heatmap = new google.maps.visualization.HeatmapLayer({
 			data:pointArray, 
+			opacity: 0.5,
 		});
 	heatmap.setMap(map);
 }
