@@ -1,7 +1,9 @@
 seattle-crime-visualization
 ===========================
 
-An application to help Seattle residents understand crime around CenturyLink field
+An application to help Seattle residents understand crime around CenturyLink field.
+
+This app uses Rails 4.1.4, PostgreSQL, Google Maps API, Google Charts, and the Foundation framework.
 
 ### How to run:
 
