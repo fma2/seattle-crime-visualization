@@ -3,8 +3,16 @@ var sodaUrls = new Array();
 var map;
 var heatmap;
 
+var offsetPoints = new Array();
+var createPoints = function() {
+	offsetPoints.push(0);
+	for (var i = 1; i<21; i++) {
+		offsetPoints.push(parseInt(i+"000"));
+	}
+}
+createPoints();
+// console.log(offsetPoints);
 // API Call
-var offsetPoints = [0,1000,2000,3000,4000,5000,6000,7000,8000,9000,10000]
 for (i=0; i < offsetPoints.length; ++i) {
 	sodaUrls.push("https://data.seattle.gov/resource/3k2p-39jp.json?$where=within_box(incident_location, 47.615152, -122.351639, 47.575152, -122.3116390)&$offset="+offsetPoints[i]+"&$select=event_clearance_group, latitude, longitude, event_clearance_date, hundred_block_location")
 	}
@@ -152,5 +160,8 @@ function changeOpacity() {
 }
 
 // Add Crime Data
-// parseJsonToAddPoints(sodaUrls);
-parseJsontoAddHeatMap(sodaUrls);
+
+setTimeout(function(){
+	parseJsonToAddPoints(sodaUrls);
+	parseJsontoAddHeatMap(sodaUrls);
+}, 3000);
