@@ -1,6 +1,6 @@
-var countofIncidentsbyMonthSodaUrl ="https://data.seattle.gov/resource/3k2p-39jp.json?$select=date_trunc_ym(event_clearance_date) AS month, count(*) AS total&$group=month&$where=within_box(incident_location, 47.615152, -122.351639, 47.575152, -122.3116390)";
-var typesOfIncidentsSodaUrl = "https://data.seattle.gov/resource/3k2p-39jp.json?$where=within_box(incident_location, 47.615152, -122.351639, 47.575152, -122.3116390)&$select=event_clearance_group";
-var totalCountSodaUrl = "https://data.seattle.gov/resource/3k2p-39jp.json?$where=within_box(incident_location, 47.615152, -122.351639, 47.575152, -122.3116390)&$select=count(*)";
+var countofIncidentsbyMonthSodaUrl ="https://data.seattle.gov/resource/3k2p-39jp.json?$select=date_trunc_ym(event_clearance_date) AS month, count(*) AS total&$group=month&$where=within_box(incident_location, 47.605152, -122.341639, 47.585152, -122.3216390)";
+var typesOfIncidentsSodaUrl = "https://data.seattle.gov/resource/3k2p-39jp.json?$where=within_box(incident_location, 47.605152, -122.341639, 47.585152, -122.3216390)&$select=event_clearance_group";
+var totalCountSodaUrl = "https://data.seattle.gov/resource/3k2p-39jp.json?$where=within_box(incident_location, 47.605152, -122.341639, 47.585152, -122.3216390)&$select=count(*)";
 
 //Overall count
 $.getJSON(totalCountSodaUrl, function(data) {
@@ -19,16 +19,15 @@ function drawIncidentsPieChart(url) {
 	var incidentsCount; var programsArr; var data;
 	var options = {
     legend: 'none',
-    slices: { 2: {offset: 0.4},
-              8: {offset: 0.2},
-              7: {offset: 0.1},
-              0: {offset: 0.3}
+    slices: { 0: {offset: 0.3},
+    					1: {offset: 0.3},
+    					2: {offset: 0.4},
+    					4: {offset: 0.4},
+              12: {offset: 0.2},
             },
     width: 400,
     height: 375,
     pieSliceText: 'percentage',
-    // top: 0,
-    // left: 0
   	}
 	$.getJSON(url, function(data) {
 		incidentsCount = countIncidents(data);
