@@ -1,0 +1,60 @@
+// Place all the styles related to the Crimes controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#map-canvas {
+ height: 700px;
+ width: 100%;
+}
+
+/*fix zoom bar distortion problem*/
+#map-canvas *, #map-canvas *:before, #map-canvas *:after {
+    -moz-box-sizing: content-box!important;
+    -webkit-box-sizing: content-box!important;
+    box-sizing: content-box!important;  
+}
+#map-canvas img {
+    max-width: none;
+}
+#map-canvas label {
+    width: auto;
+    display: inline;
+}
+
+.image {
+  /* force the div to properly contain the floated images: */
+  position:relative;
+  float:left;
+  clear:none;
+  overflow:hidden;
+}
+.image img {
+  position:relative;
+  z-index:1;
+}
+.image .desc {
+	
+  display:block;
+  position:absolute;
+  width:100%;
+  top:0%;
+  left:0;
+  z-index:2;
+  text-align:left;
+  color: #000;
+  color: rgba(0, 0, 0, 0.5);;
+	font-size: 615%;
+  padding-left: 20px;
+  background: white;
+}
+#panel {
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        margin-left: -180px;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+      }
+

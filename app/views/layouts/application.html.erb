@@ -1,14 +1,33 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>SeattleCrimeVisualization</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<%= yield %>
+    <title><%= content_for?(:title) ? yield(:title) : "Crime near CenturyLink Field, Seattle" %></title>
 
-</body>
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= csrf_meta_tags %>
+      <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDeZ3obzXa62Hl-l1G7D1MwO4fNl2mLWj4"> </script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=visualization"></script>
+  </head>
+
+  <body>
+    <div class="row">
+      <!-- <div class="large-3 columns"> -->
+        <!-- <h1><img src="http://placehold.it/400x100&text=Logo"></h1> -->
+      <!-- </div> -->
+      <div class="large-12 columns ">
+        <ul class="button-group right">
+          <li><a href="/" class="button">stats</a></li>
+          <li><a href="#map" class="button">map</a></li>
+        </ul>
+      </div>
+    </div>
+    <%= yield %>
+    <%= javascript_include_tag "application" %>
+  </body>
 </html>
