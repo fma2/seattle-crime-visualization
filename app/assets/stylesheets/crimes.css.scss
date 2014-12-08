@@ -22,7 +22,6 @@
 }
 
 .image {
-  /* force the div to properly contain the floated images: */
   position:relative;
   float:left;
   clear:none;
@@ -33,25 +32,28 @@
   z-index:1;
 }
 .image .desc {
-	
+  background: url(rsz_seattle-seahawks-3.jpg) repeat;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
   display:block;
-  position:absolute;
-  width:100%;
-  top:0%;
-  left:0;
-  z-index:2;
-  text-align:left;
-  color: #000;
-  color: rgba(0, 0, 0, 0.5);;
-	font-size: 615%;
-  padding-left: 20px;
-  background: white;
+  background-color:#fff; 
+  overflow:hidden;
+  display:inline-block; 
+  padding:10px; 
+  font-weight:bold;
+  font-family:arial;
+  font-size:125px;
 }
+
+
 #panel {
   position: absolute;
-  top: 650px;
-  left:14%;
+  top: 740px;
+  left:11%;
   z-index: 5;
   padding: 5px;
 }
 
+a {
+  font-family: Roboto;
+}

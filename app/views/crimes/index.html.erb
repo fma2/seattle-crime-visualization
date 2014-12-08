@@ -1,41 +1,58 @@
 <div class="row">
+  <a name="top"></a>
   <div class="large-12 columns">
     <div class="image">
-      <%= link_to image_tag("rsz_seattle-seahawks-3.jpg")%>
-      <h1 class="desc">make safety a priority at the next game</span></h1>
+      <h1 class="desc"><span>make safety a priority at the next game</span></h1>
     </div>
-    
   </div>
   <hr>
 </div>
 
 
 <div class="row">
-  <div class="large-6 columns">
-    <div id="total_count"></div>
-    <h4>This is a content section.</h4>
-
-    <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</p>
-
-    <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>
-
+  <a name="stats"></a>
+  <div class="large-5 columns">
+    <h4 class="large button disabled">look out.</h4>
+    <p>within one mile of CenturyLink Field, common incidences reported include:</p>
+    <ul class="stack button-group white">
+      <li class="button disabled">traffic-related calls</li>
+      <li class="button disabled">suspicious circumstances</li>
+      <li class="button disabled">liquor violations</li>
+      <li class="button disabled">disturbances</li>
+      <li class="button disabled">trespass</li>
+      <li class="button disabled">narcotics complaints</li>
+    </ul>
   </div>
-  <div class="large-6 columns">
+  <div class="large-7 columns">
     <div id="piechart"></div>
   </div>
-
 </div>
-
-<div class="row">
-  <div class="large-12 columns">
-    <div id="linechart"></div>
-  </div>
 
 <div class="row">
   <hr>
   <div class="large-12 columns">
-    <!-- <img src="http://placehold.it/1000x400&text=[img]"> --> 
-    maps only 20,000 incidents of over 84772 in database <!-- total might need to be updated -->
+    <h3 class="large button right disabled">safety incidences: a retrospective</h3>
+    <h5 class="subheader">has the number of incidences changed over years?  check it out.</h5>
+    <br>
+    <div id="linechart"></div>
+    <br>
+  </div>
+</div>
+
+<div class="row">
+  <div class="large-4 columns"></div>
+  <div class="large-8 columns">
+    <span class="total_count"></span>    
+  </div>
+  <!-- <div class="small-6 large-2 columns"></div> -->
+</div>
+
+<div class="row">
+  <hr>
+  <div class="large-12 columns">
+    <a name="map"></a>
+    <h3 class="large button disabled">map it.</h3>
+    <h5 class="subheader">use the map below to view <font color="red">hot spots</font> for safety issues.  it displays 20,000 incidents of over 80,000 reported since 2009 within one-mile of CenturyLink Field.  select "add incidents information to drop pins on the map with information on each."</h5> <!-- total might need to be updated -->
     <div id="map-canvas"></div>
      <div id="panel">
       <ul class="stack-for-small round secondary button-group">
@@ -49,19 +66,19 @@
   </div>
 </div>
 
+
 <footer class="row">
   <div class="large-12 columns">
     <hr/>
     <div class="row">
       <div class="large-6 columns">
-        <p>© Copyright no one at all. Go to town.</p>
+        <p>© Copyright <%= link_to("Farheen Malik", "http://www.farheenmalik.com") %>.</p>
       </div>
       <div class="large-6 columns">
         <ul class="inline-list right">
-          <li><a href="#">Link 1</a></li>
-          <li><a href="#">Link 2</a></li>
-          <li><a href="#">Link 3</a></li>
-          <li><a href="#">Link 4</a></li>
+          <li><a href="#top">top of page</a></li>
+          <li><a href="#stats">what to look out for</a></li>
+          <li><a href="#map">where to pay attention</a></li>
         </ul>
       </div>
     </div>
