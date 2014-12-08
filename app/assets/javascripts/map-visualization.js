@@ -6,15 +6,15 @@ var heatmap;
 var offsetPoints = new Array();
 var createPoints = function() {
 	offsetPoints.push(0);
-	for (var i = 1; i<21; i++) {
+	for (var i = 1; i<11; i++) {
 		offsetPoints.push(parseInt(i+"000"));
 	}
 }
 createPoints();
-// console.log(offsetPoints);
+
 // API Call
 for (i=0; i < offsetPoints.length; ++i) {
-	sodaUrls.push("https://data.seattle.gov/resource/3k2p-39jp.json?$where=within_box(incident_location, 47.615152, -122.351639, 47.575152, -122.3116390)&$offset="+offsetPoints[i]+"&$select=event_clearance_group, latitude, longitude, event_clearance_date, hundred_block_location")
+	sodaUrls.push("https://data.seattle.gov/resource/3k2p-39jp.json?$where=within_box(incident_location, 47.605152, -122.341639, 47.585152, -122.3216390)&$offset="+offsetPoints[i]+"&$select=event_clearance_group, latitude, longitude, event_clearance_date, hundred_block_location")
 	}
 
 //Draws map
@@ -43,7 +43,7 @@ function drawMap(){
 	];
 	var mapOptions = {
 	  center: { lat: 47.595152, lng: -122.331639},
-	  zoom: 13,
+	  zoom: 15,
 	  styles: styleArray,
 	  mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
@@ -72,14 +72,14 @@ function parseJsonToAddPoints(urls) {
 		$.getJSON(urls[i],function(data) {
 		var data_to_map = prepareDataforMap(data);
 		for (i = 0; i < data_to_map.length; i++) {
-	    createMarker(data_to_map[i][0], data_to_map[i][1], data_to_map[i][2], data_to_map[i][3],data_to_map[i][4], map)
+			createMarker(data_to_map[i][0], data_to_map[i][1], data_to_map[i][2], data_to_map[i][3],data_to_map[i][4], map)
 	  	}
 		});	
 	}
 }
 
-function togglePointsMap() {
-	// heatmap.setMap(heatmap.getMap() ? null : map);
+function dropPointsonMap() {
+	parseJsonToAddPoints(sodaUrls);
 }
 
 //Creates and defines markers on map
@@ -87,9 +87,8 @@ function createMarker(latitude, longitude, hundred_block_location, event_clearan
   var point = new google.maps.LatLng(latitude, longitude);
   var marker = new google.maps.Marker({
       position: point,
-      icon: "https://maps.gstatic.com/intl/en_us/mapfiles/markers2/measle_blue.png",
       map: map,
-      title: event_clearance_group
+      title: event_clearance_group,
   });
 
    var contentString = '<div id="content">'+
@@ -120,11 +119,15 @@ function parseJsontoAddHeatMap(urls) {
 		    	new google.maps.LatLng(parseFloat(data_to_map[i][0]), parseFloat(data_to_map[i][1]))
 		    	)
 		  }
-		  var pointArray = new google.maps.MVCArray(dataArr);
-			heatmap = new google.maps.visualization.HeatmapLayer({data:pointArray});
-			heatmap.setMap(map);
+		  
 		});
 	}
+	var pointArray = new google.maps.MVCArray(dataArr);
+		heatmap = new google.maps.visualization.HeatmapLayer({
+			data:pointArray, 
+			opacity: 0.5,
+		});
+	heatmap.setMap(map);
 }
 
 function toggleHeatmap() {
@@ -159,9 +162,7 @@ function changeOpacity() {
   heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
 }
 
-// Add Crime Data
-
+//Adds crime Data to map
 setTimeout(function(){
-	parseJsonToAddPoints(sodaUrls);
 	parseJsontoAddHeatMap(sodaUrls);
-}, 3000);
+}, 1000);

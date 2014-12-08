@@ -35,14 +35,16 @@
   <hr>
   <div class="large-12 columns">
     <!-- <img src="http://placehold.it/1000x400&text=[img]"> --> 
-    maps only 10,000 incidents of over 298968 in database <!-- total might need to be updated -->
+    maps only 20,000 incidents of over 84772 in database <!-- total might need to be updated -->
     <div id="map-canvas"></div>
      <div id="panel">
-      <button onclick="togglePointsMap()">Toggle points on map</button>
-      <button onclick="toggleHeatmap()">Toggle Heatmap</button>
-      <button onclick="changeGradient()">Change gradient</button>
-      <button onclick="changeRadius()">Change radius</button>
-      <button onclick="changeOpacity()">Change opacity</button>
+      <ul class="stack-for-small round secondary button-group">
+        <li><a onclick="toggleHeatmap()" class="tiny button">Toggle Heatmap</a></li>
+        <li><a onclick="changeGradient()" class="tiny button">Change Heatmap gradient</a></li>
+        <li><a onclick="changeRadius()" class="tiny button">Change Heatmap radius</a></li>
+        <li><a onclick="changeOpacity()" class="tiny button">Change Heatmap opacity</a></li>
+        <li><a onclick="dropPointsonMap()" class="tiny button">Add incidents information</a></li>
+      </ul>
     </div>
   </div>
 </div>
