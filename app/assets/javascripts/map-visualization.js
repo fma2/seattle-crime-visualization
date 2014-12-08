@@ -4,9 +4,10 @@ var map;
 var heatmap;
 
 var offsetPoints = new Array();
+var offsetNum = 11; //Change this number (up to 80) to pull more data points
 var createPoints = function() {
 	offsetPoints.push(0);
-	for (var i = 1; i<11; i++) {
+	for (var i = 1; i<offsetNum; i++) { 
 		offsetPoints.push(parseInt(i+"000"));
 	}
 }
@@ -18,7 +19,6 @@ for (i=0; i < offsetPoints.length; ++i) {
 	}
 
 //Draws map
-google.maps.event.addDomListener(window, 'load', drawMap);
 function drawMap(){
 	var styleArray = [
 	{
@@ -50,6 +50,7 @@ function drawMap(){
 	map = new google.maps.Map(document.getElementById('map-canvas'),
 	    mapOptions);
 }
+google.maps.event.addDomListener(window, 'load', drawMap);
 
 //Takes json and parses to push to array
 function prepareDataforMap(data) {
@@ -78,10 +79,6 @@ function parseJsonToAddPoints(urls) {
 	}
 }
 
-function dropPointsonMap() {
-	parseJsonToAddPoints(sodaUrls);
-}
-
 //Creates and defines markers on map
 function createMarker(latitude, longitude, hundred_block_location, event_clearance_date, event_clearance_group, map) {
   var point = new google.maps.LatLng(latitude, longitude);
@@ -108,6 +105,11 @@ function createMarker(latitude, longitude, hundred_block_location, event_clearan
   });
 }
 
+//Drop points on map
+function dropPointsonMap() {
+	parseJsonToAddPoints(sodaUrls);
+}
+
 //Parses json to add heat map
 function parseJsontoAddHeatMap(urls) {
 	var dataArr = new Array();
@@ -118,15 +120,14 @@ function parseJsontoAddHeatMap(urls) {
 		    dataArr.push(
 		    	new google.maps.LatLng(parseFloat(data_to_map[i][0]), parseFloat(data_to_map[i][1]))
 		    	)
-		  }
-		  
+		  }		  
 		});
 	}
 	var pointArray = new google.maps.MVCArray(dataArr);
-		heatmap = new google.maps.visualization.HeatmapLayer({
-			data:pointArray, 
-			opacity: 0.5,
-		});
+	heatmap = new google.maps.visualization.HeatmapLayer({
+		data:pointArray, 
+		opacity: 0.5,
+	});
 	heatmap.setMap(map);
 }
 
@@ -162,7 +163,7 @@ function changeOpacity() {
   heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
 }
 
-//Adds crime Data to map
+//Add crime data heatmap to map
 setTimeout(function(){
 	parseJsontoAddHeatMap(sodaUrls);
 }, 1000);
