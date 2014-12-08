@@ -7,11 +7,9 @@ $.getJSON(totalCountSodaUrl, function(data) {
 	var count;
 	for (i=0; i<data.length; i++) {
 		count = data[i].count
-		console.log(count)
+		$(".total_count").append("<h4 class='subheader'>total incidences to date: "+count+"</h4>")
 	}
-
 })
-
 // Pie Chart
 google.load("visualization", "1", {packages:["corechart"]});
 
@@ -25,8 +23,8 @@ function drawIncidentsPieChart(url) {
     					4: {offset: 0.4},
               12: {offset: 0.2},
             },
-    width: 400,
-    height: 375,
+    width: 550,
+    height: 500,
     pieSliceText: 'percentage',
   	}
 	$.getJSON(url, function(data) {
@@ -68,8 +66,8 @@ setTimeout(function(){
 //Line Graph
 function drawDatesLineChart(url) {
 	var options = {
-		width: 1100,
-		height: 563,
+		width: 1010,
+		height: 400,
 		hAxis: {
 			title: 'Year-Month'
 		},
