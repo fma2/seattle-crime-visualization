@@ -90,9 +90,12 @@ function drawDatesLineChart(url) {
 function prepareDatesData(data) {
 	var datesIncidentsArr = new Array ()
 	for (i=0; i< data.length-1; i++) {
-			var month = data[i].month.split("T")[0];
+		var month = data[i].month
+		if (month) { 
+			month = month.split("T")[0];
 			var noOfIncidents = data[i].total;
 			datesIncidentsArr.push([month, parseInt(noOfIncidents)]);
+		}
 	}
 	return datesIncidentsArr;
 }
